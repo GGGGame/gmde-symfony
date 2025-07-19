@@ -13,19 +13,19 @@ class ImportResult
         $this->successCount++;
     }
 
-    public function addFailed(array $row, ?string $error = null): void
+    public function addFailed(array $row, ?string $message = null): void
     {
         $this->failedRows[] = [
             'row' => $row,
-            'error' => $error,
+            'error' => $message,
         ];
     }
 
-    public function addSkipped(array $row, ?string $reason = null): void
+    public function addSkipped(array $row, ?string $message = null): void
     {
         $this->skippedRows[] = [
             'row' => $row,
-            'reason' => $reason
+            'reason' => $message
         ];
     }
 }

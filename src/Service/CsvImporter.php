@@ -2,13 +2,16 @@
 
 namespace App\Service;
 
-
+use App\Factory\EngineFactory;
+use App\Factory\VehicleFactory;
 use League\Csv\Reader;
 
 class CsvImporter
 {
     public function __construct(
-        private VehicleImporter $vehicleImporter
+        private VehicleFactory $vehicleFactory,
+        private EngineFactory $engineFactory,
+        private GenericImporter $genericImporter
     ) {}
 
     public function import(string $csvPath): void
@@ -17,8 +20,14 @@ class CsvImporter
                   ->setDelimiter(';')
                   ->setHeaderOffset(0);
 
-        $records = $reader->getRecords();
+        $engine = $this->genericImporter->import(
+            $reader->getRecords(),
+            fn($row) => $this->engineFactory->createEngine($row),
+        );
 
-        $this->vehicleImporter->import($records);
+        $vehicle = $this->genericImporter->import(
+            $reader->getRecords(),
+            fn($row) => $this->vehicleFactory->createVehicle($row, $engine),
+        );
     }
 }

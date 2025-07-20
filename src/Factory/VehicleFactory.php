@@ -2,36 +2,30 @@
 
 namespace App\Factory;
 
+use App\Entity\Engine;
 use App\Entity\Vehicle;
-use App\Service\StringNormalizer;
+use DateTime;
 
 class VehicleFactory
 {
-    public function __construct(
-        private StringNormalizer $stringNormalizer
-    ) {}
-
-    public function createVehicle(array $data): Vehicle
+    public function createVehicle(array $data, array $engine): Vehicle
     {
         $vehicle = new Vehicle();
 
-        foreach ($data as $key => $value) {
-            $key = $this->stringNormalizer->normalize($key);
-
-            $vehicle = new Vehicle();
-            $vehicle->setBrand($data['brand'] ?? null);
-            $vehicle->setModel($data['model'] ?? null);
-            $vehicle->setYear($data['year'] ?? null);
-            $vehicle->setBaseModel($data['baseModel'] ?? null);
-            $vehicle->setVehicleSizeClass($data['vehicleSizeClass'] ?? null);
-            $vehicle->setAtvType($data['atvType'] ?? null);
-            $vehicle->setGuzzler($data['guzzler'] ?? null);
-            $vehicle->setVehicleSaveSpend($data['vehicleSaveSpend'] ?? null);
-            $vehicle->setCreatedOn($data['createdOn'] ?? null);
-            $vehicle->setModifiedOn($data['modifiedOn'] ?? null);
+        $vehicle->setBrand($data['make'] ?? null);
+        $vehicle->setModel($data['model'] ?? null);
+        $vehicle->setYear($data['year'] ?? null);
+        $vehicle->setBaseModel($data['baseModel'] ?? null);
+        $vehicle->setVehicleSizeClass($data['vehicleSizeClass'] ?? null);
+        $vehicle->setAtvType($data['atvType'] ?? null);
+        $vehicle->setGuzzler($data['guzzler'] ?? null);
+        $vehicle->setVehicleSaveSpend($data['youSave/Spend'] ?? null);
+        $vehicle->setCreatedOn(new DateTime() ?? null);
+        $vehicle->setModifiedOn(new DateTime() ?? null);
+        foreach ($engine as $engineData) {
+            $vehicle->setEngineSpecs($engineData);
         }
-
-        dump($vehicle);
+    
         return $vehicle;
     }
 }

@@ -4,9 +4,13 @@ namespace App\Service;
 
 class StringNormalizer
 {
-    public function normalize(string $input, ?string $case = 'camel'): string
+    public function normalizeKey(array $data, ?string $case = 'camel'): array
     {
-        return $this->normalizeString($input, $case);
+        $normalized = [];
+        foreach ($data as $key => $value) {
+            $normalized[$this->normalizeString($key, $case)] = empty($value) ? null : $value;
+        }
+        return $normalized;
     }
 
     private function normalizeString(string $input, string $case): string

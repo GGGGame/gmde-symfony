@@ -2,12 +2,13 @@
 
 namespace App\Entity;
 
+use App\Interface\ImportableEntityInterface;
 use App\Repository\VehicleRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: VehicleRepository::class)]
-class Vehicle
+class Vehicle implements ImportableEntityInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -38,16 +39,13 @@ class Vehicle
     #[ORM\Column(nullable: true)]
     private ?int $vehicleSaveSpend = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?int $vehicleId = null;
-
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTime $createdOn = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTime $modifiedOn = null;
 
-    #[ORM\ManyToOne(inversedBy: 'vehicles')]
+    #[ORM\ManyToOne(inversedBy: 'vehicles', cascade: ['persist'])]
     private ?Engine $engineSpecs = null;
 
     #[ORM\ManyToOne(inversedBy: 'vehicles')]
@@ -162,18 +160,6 @@ class Vehicle
     public function setVehicleSaveSpend(?int $vehicleSaveSpend): static
     {
         $this->vehicleSaveSpend = $vehicleSaveSpend;
-
-        return $this;
-    }
-
-    public function getVehicleId(): ?int
-    {
-        return $this->vehicleId;
-    }
-
-    public function setVehicleId(?int $vehicleId): static
-    {
-        $this->vehicleId = $vehicleId;
 
         return $this;
     }

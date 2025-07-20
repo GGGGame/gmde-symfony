@@ -2,13 +2,14 @@
 
 namespace App\Entity;
 
+use App\Interface\ImportableEntityInterface;
 use App\Repository\VehicleDimensionsRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: VehicleDimensionsRepository::class)]
-class VehicleDimensions
+class VehicleDimensions implements ImportableEntityInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]

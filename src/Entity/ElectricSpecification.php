@@ -2,13 +2,14 @@
 
 namespace App\Entity;
 
+use App\Interface\ImportableEntityInterface;
 use App\Repository\ElectricSpecificationRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ElectricSpecificationRepository::class)]
-class ElectricSpecification
+class ElectricSpecification implements ImportableEntityInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]

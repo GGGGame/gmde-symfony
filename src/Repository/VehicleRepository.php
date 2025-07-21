@@ -32,6 +32,15 @@ class VehicleRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
     }
 
+    public function findById(int $id): ?Vehicle
+    {
+        return $this->createQueryBuilder('v')
+            ->andWhere('v.id = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
 
 //    /**
 //     * @return Vehicle[] Returns an array of Vehicle objects

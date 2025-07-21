@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use App\Interface\ImportableEntityInterface;
 use App\Repository\EngineRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -10,7 +9,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: EngineRepository::class)]
-class Engine implements ImportableEntityInterface
+class Engine
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]

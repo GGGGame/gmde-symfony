@@ -2,13 +2,12 @@
 
 namespace App\Entity;
 
-use App\Interface\ImportableEntityInterface;
 use App\Repository\VehicleRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: VehicleRepository::class)]
-class Vehicle implements ImportableEntityInterface
+class Vehicle
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -48,19 +47,19 @@ class Vehicle implements ImportableEntityInterface
     #[ORM\ManyToOne(inversedBy: 'vehicles', cascade: ['persist'])]
     private ?Engine $engineSpecs = null;
 
-    #[ORM\ManyToOne(inversedBy: 'vehicles')]
+    #[ORM\ManyToOne(inversedBy: 'vehicles', cascade: ['persist'])]
     private ?FuelSpecification $fuelSpecs = null;
 
-    #[ORM\ManyToOne(inversedBy: 'vehicles')]
+    #[ORM\ManyToOne(inversedBy: 'vehicles', cascade: ['persist'])]
     private ?Transmission $transmissionSpecs = null;
 
-    #[ORM\ManyToOne(inversedBy: 'vehicles')]
+    #[ORM\ManyToOne(inversedBy: 'vehicles', cascade: ['persist'])]
     private ?VehicleDimensions $dimensionSpecs = null;
 
-    #[ORM\ManyToOne(inversedBy: 'vehicles')]
+    #[ORM\ManyToOne(inversedBy: 'vehicles', cascade: ['persist'])]
     private ?PerformanceData $performanceSpecs = null;
 
-    #[ORM\ManyToOne(inversedBy: 'vehicles')]
+    #[ORM\ManyToOne(inversedBy: 'vehicles', cascade: ['persist'])]
     private ?ElectricSpecification $electricSpecs = null;
 
     public function getId(): ?int

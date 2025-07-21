@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use App\Interface\ImportableEntityInterface;
 use App\Repository\FuelSpecificationRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -10,7 +9,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: FuelSpecificationRepository::class)]
-class FuelSpecification implements ImportableEntityInterface
+class FuelSpecification
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -73,6 +72,9 @@ class FuelSpecification implements ImportableEntityInterface
 
     #[ORM\Column(nullable: true)]
     private ?int $highwayMpgFT1 = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $highwayMpgFT2 = null;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 15, scale: 10, nullable: true)]
     private ?string $unroundedHighwayMpgFT1 = null;
@@ -359,6 +361,18 @@ class FuelSpecification implements ImportableEntityInterface
     public function setHighwayMpgFT1(?int $highwayMpgFT1): static
     {
         $this->highwayMpgFT1 = $highwayMpgFT1;
+
+        return $this;
+    }
+
+    public function getHighwayMpgFT2(): ?int
+    {
+        return $this->highwayMpgFT2;
+    }
+
+    public function setHighwayMpgFT2(?int $highwayMpgFT2): static
+    {
+        $this->highwayMpgFT2 = $highwayMpgFT2;
 
         return $this;
     }

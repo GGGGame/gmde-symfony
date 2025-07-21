@@ -10,13 +10,12 @@ class EngineFactory
     {
         $engine = new Engine();
 
-        $engine->setCylinders((int)$data['cylinders'] ?? null);
-        $engine->setDisplacement($data['engineDisplacement'] ?? null);
-        $engine->setDrive($data['drive'] ?? null);
-        $engine->setEngineDescriptor($data['engineDescriptor'] ?? null);
-        $engine->setEpaModelTypeIndex((int)$data['ePAModelTypeIndex'] ?? null);
-        $engine->setSystemStartStop($data['startStop'] ?? null);
-        
-        return $engine;
+        return $engine
+            ->setCylinders((int)$data['cylinders'] ?? null)
+            ->setDisplacement($data['engineDisplacement'] ?? null)
+            ->setDrive($data['drive'] ?? null)
+            ->setEngineDescriptor($data['engineDescriptor'] ?? null)
+            ->setEpaModelTypeIndex((int)$data['ePAModelTypeIndex'] ?? null)
+            ->setSystemStartStop($data['startStop'] ?? null);
     }
 }

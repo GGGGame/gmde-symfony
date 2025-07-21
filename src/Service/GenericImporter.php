@@ -38,9 +38,7 @@ class GenericImporter
                 if ($this->validator->validate($entity)) {
                     $entities[] = $entity;
                 }
-                if ($i == 100) {
-                    break;
-                }
+
             } catch (\Exception $e) {
                 $this->logger->error('Error during import: ' . $e->getMessage());
             }

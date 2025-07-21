@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use App\Interface\ImportableEntityInterface;
 use App\Repository\PerformanceDataRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -10,7 +9,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: PerformanceDataRepository::class)]
-class PerformanceData implements ImportableEntityInterface
+class PerformanceData
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -39,7 +38,7 @@ class PerformanceData implements ImportableEntityInterface
     private ?string $unadjustedCityMpgFT2 = null;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 8, scale: 4, nullable: true)]
-    private ?string $unadjustedHighwayFT1 = null;
+    private ?string $unadjustedHighwayMpgFT1 = null;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 8, scale: 4, nullable: true)]
     private ?string $unadjustedHighwayMpgFT2 = null;
@@ -150,14 +149,14 @@ class PerformanceData implements ImportableEntityInterface
         return $this;
     }
 
-    public function getUnadjustedHighwayFT1(): ?string
+    public function getUnadjustedHighwayMpgFT1(): ?string
     {
-        return $this->unadjustedHighwayFT1;
+        return $this->unadjustedHighwayMpgFT1;
     }
 
-    public function setUnadjustedHighwayFT1(?string $unadjustedHighwayFT1): static
+    public function setUnadjustedHighwayMpgFT1(?string $unadjustedHighwayMpgFT1): static
     {
-        $this->unadjustedHighwayFT1 = $unadjustedHighwayFT1;
+        $this->unadjustedHighwayMpgFT1 = $unadjustedHighwayMpgFT1;
 
         return $this;
     }

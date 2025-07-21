@@ -9,9 +9,8 @@ use League\Csv\Reader;
 class CsvImporter
 {
     public function __construct(
-        private VehicleFactory $vehicleFactory,
-        private EngineFactory $engineFactory,
-        private GenericImporter $genericImporter
+        private GenericImporter $genericImporter,
+        private VehicleCreator $vehicleCreator
     ) {}
 
     public function import(string $csvPath): void
@@ -20,14 +19,9 @@ class CsvImporter
                   ->setDelimiter(';')
                   ->setHeaderOffset(0);
 
-        $engine = $this->genericImporter->import(
+        $this->genericImporter->import(
             $reader->getRecords(),
-            fn($row) => $this->engineFactory->createEngine($row),
-        );
-
-        $vehicle = $this->genericImporter->import(
-            $reader->getRecords(),
-            fn($row) => $this->vehicleFactory->createVehicle($row, $engine),
+            fn($row) => $this->vehicleCreator->createCompleteVehicle($row)
         );
     }
 }

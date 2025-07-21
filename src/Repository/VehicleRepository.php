@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Vehicle;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -15,6 +16,22 @@ class VehicleRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Vehicle::class);
     }
+
+    public function findOneByFields(array $data): ?Vehicle
+    {
+        return $this->createQueryBuilder('v')
+            ->andWhere('v.brand = :make')
+            ->andWhere('v.model = :model')
+            ->andWhere('v.year = :year')
+            ->setParameter('make', $data['make'])
+            ->setParameter('model', $data['model'])
+            ->setParameter('year', $data['year'])
+            ->orderBy('v.id', 'ASC')
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
 
 //    /**
 //     * @return Vehicle[] Returns an array of Vehicle objects

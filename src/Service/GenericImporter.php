@@ -23,31 +23,52 @@ class GenericImporter
     public function import(
         iterable $rows, 
         callable $factory,
-        ?int $batchSize = 500
+        ?int $batchSize = 100
         ): array
     {
-        $entities = [];
-        $i = 0;
+        $batch = [];
+        $importResult = new ImportResult();
+
         foreach ($rows as $row) {
             try {
-                $i++;
                 // Normalizza le keys prima di creare Vehicle
                 $row = $this->stringNormalizer->normalizeKey($row);
                 $entity = $factory($row);
 
-                if ($this->validator->validate($entity)) {
-                    $entities[] = $entity;
+                $validationResult = $this->validator->validate($entity);
+                if (count($validationResult) === 0) {
+                    $batch[] = $entity;
+                    $importResult->addSuccess();
+
+                    if (count($batch) > $batchSize) {
+                        $this->batchEntityPersister->persist($batch, $batchSize);
+                        $batch = [];
+
+                        $this->logger->info(
+                            "Importati {$importResult->getSuccessCount()} veicoli");
+                        
+                        gc_collect_cycles();
+                    }
+                } else {
+                    foreach ($validationResult as $error) {
+                        $importResult->addFailed($row, $error->getMessage());
+                    }
+                    $this->logger->error("Validazione fallita per: {$row}");
                 }
 
             } catch (\Exception $e) {
                 $this->logger->error('Error during import: ' . $e->getMessage());
+                $importResult->addFailed($row, $error->getMessage());
             }
         }
 
-        if (!empty($entities)) {
-            $this->batchEntityPersister->persist($entities, $this->entityManager, $batchSize);
+        if (!empty($batch)) {
+            $this->batchEntityPersister->persist($batch, $batchSize);
         }
 
-        return $entities;
+        $this->logger->info("Import completato con {$importResult->getSuccessCount()} successi e " .
+            count($importResult->getFailedRows()) . " errori.");
+
+        return $batch;
     }
 }

@@ -16,6 +16,25 @@ class PerformanceDataRepository extends ServiceEntityRepository
         parent::__construct($registry, PerformanceData::class);
     }
 
+    public function findOneByFields(array $data): ?PerformanceData
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.rangeFT1 = :rangeFT1')
+            ->andWhere('p.rangeCityFT1 = :rangeCityFT1')
+            ->andWhere('p.rangeHighwayFT1 = :rangeHighwayFT1')
+            ->andWhere('p.unadjustedCityMpgFT1 = :unadjustedCityMpgFT1')
+            ->andWhere('p.unadjustedHighwayMpgFT1 = :unadjustedHighwayMpgFT1')
+            ->setParameter('rangeFT1', $data['rangeForFuelType1'])
+            ->setParameter('rangeCityFT1', $data['rangeCityForFuelType1'])
+            ->setParameter('rangeHighwayFT1', $data['rangeHighwayForFuelType1'])
+            ->setParameter('unadjustedCityMpgFT1', $data['unadjustedCityMpgForFuelType1'])
+            ->setParameter('unadjustedHighwayMpgFT1', $data['unadjustedHighwayMpgForFuelType1'])
+            ->orderBy('p.id', 'ASC')
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
 //    /**
 //     * @return PerformanceData[] Returns an array of PerformanceData objects
 //     */

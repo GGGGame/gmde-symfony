@@ -16,6 +16,25 @@ class FuelSpecificationRepository extends ServiceEntityRepository
         parent::__construct($registry, FuelSpecification::class);
     }
 
+    public function findOneByFields(array $data): ?FuelSpecification
+    {
+        return $this->createQueryBuilder('f')
+            ->andWhere('f.fuelType = :fuelType')
+            ->andWhere('f.fuelType1 = :fuelTP1')
+            ->andWhere('f.fuelType2 = :fuelTP2')
+            ->andWhere('f.cityMpgFT1 = :cityMpgFT1')
+            ->andWhere('f.combinedMpgFT1 = :combinedMpgFT1')
+            ->setParameter('fuelType', $data['fuelType'] ?? null)
+            ->setParameter('fuelTP1', $data['fuelType1'] ?? null)
+            ->setParameter('fuelTP2', $data['fuelType2'] ?? null)
+            ->setParameter('cityMpgFT1', $data['cityMpgForFuelType1'] ?? null)
+            ->setParameter('combinedMpgFT1', $data['combinedMpgForFuelType1'] ?? null)
+            ->orderBy('f.id', 'ASC')
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
 //    /**
 //     * @return FuelSpecification[] Returns an array of FuelSpecification objects
 //     */

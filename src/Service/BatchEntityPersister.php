@@ -3,26 +3,35 @@
 namespace App\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Psr\Log\LoggerInterface;
 
 class BatchEntityPersister
 {
-    public function persist(iterable $entities, EntityManagerInterface $entityManager, int $batchSize): void
-    {
-        $i = 0;
+    public function __construct(
+        private LoggerInterface $logger,
+        private EntityManagerInterface $entityManager
+    ) {}
 
-        foreach ($entities as $entity) {
-            $entityManager->persist($entity);
-            $i++;
-
-            if ($i % $batchSize === 0) {
-                $entityManager->flush();
-                $entityManager->clear();
+    public function persist(iterable $entities, int $batchSize): void
+    {    
+        foreach ($entities as $i => $entity) {
+            try {
+                $this->entityManager->persist($entity);
+                
+                if (($i + 1) % $batchSize === 0) {
+                    $this->entityManager->flush();
+                    $this->entityManager->clear();
+                }
+            } catch (\Exception $e) {
+                $this->logger->error('Error persisting entity: ' . $e->getMessage());
             }
         }
-
-        if ($i % $batchSize !== 0) {
-            $entityManager->flush();
-            $entityManager->clear();
+        
+        try {
+            $this->entityManager->flush();
+            $this->entityManager->clear();
+        } catch (\Exception $e) {
+            $this->logger->error('Error flushing final entity: ' . $e->getMessage());
         }
     }
 }

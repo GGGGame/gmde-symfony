@@ -10,7 +10,7 @@ class ElectricSpecsFactory
     {
         $electricSpecs = new ElectricSpecification();
         
-        return $electricSpecs
+        $electricSpecs
             ->setTimeToCharge120V($data['timeToChargeAt120V'] ?? null)
             ->setTimeToCharge240V($data['timeToChargeAt240V'] ?? null)
             ->setC240Dscr($data['c240Dscr'] ?? null)
@@ -22,5 +22,7 @@ class ElectricSpecsFactory
             ->setPhevCity((int)$data['pHEVCity'] ?? null)
             ->setPhevHighway((int)$data['pHEVHighway'] ?? null)
             ->setPhevCombined((int)$data['pHEVCombined'] ?? null);
+
+        return $electricSpecs;
     }
 }

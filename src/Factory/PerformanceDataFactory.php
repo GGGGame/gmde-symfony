@@ -10,7 +10,7 @@ class PerformanceDataFactory
     {
         $performanceData = new PerformanceData();
 
-        return $performanceData
+        $performanceData
             ->setRangeFT1($data['rangeForFuelType1'] ?? null)
             ->setRangeCityFT1($data['rangeCityForFuelType1'] ?? null)
             ->setRangeCityFT2($data['rangeCityForFuelType2'] ?? null)
@@ -22,5 +22,7 @@ class PerformanceDataFactory
             ->setUnadjustedHighwayMpgFT2($data['unadjustedHighwayMpgForFuelType2'] ?? null)
             ->setMpgData($data['mpgData'] ?? null)
             ->setPhevBlended($data['pHEVBlended'] ?? null);
+
+        return $performanceData;
     }
 }

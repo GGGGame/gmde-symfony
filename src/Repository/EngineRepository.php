@@ -16,6 +16,23 @@ class EngineRepository extends ServiceEntityRepository
         parent::__construct($registry, Engine::class);
     }
 
+    public function findOneByFields(array $data): ?Engine
+    {
+        return $this->createQueryBuilder('e')
+            ->andWhere('e.cylinders = :cylinders')
+            ->andWhere('e.engineDescriptor = :engineDescriptor')
+            ->andWhere('e.displacement = :displacement')
+            ->andWhere('e.epaModelTypeIndex = :epaModelTypeIndex')
+            ->setParameter('cylinders', $data['cylinders'])
+            ->setParameter('engineDescriptor', $data['engineDescriptor'])
+            ->setParameter('displacement', $data['engineDisplacement'])
+            ->setParameter('epaModelTypeIndex', $data['ePAModelTypeIndex'])
+            ->orderBy('e.id', 'ASC')
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
 //    /**
 //     * @return Engine[] Returns an array of Engine objects
 //     */

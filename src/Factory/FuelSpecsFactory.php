@@ -10,7 +10,7 @@ class FuelSpecsFactory
     {
         $fuelSpecification = new FuelSpecification();
 
-        return $fuelSpecification
+        $fuelSpecification
             ->setFuelType($data['fuelType'] ?? null)
             ->setFuelType1($data['fuelType1'] ?? null)
             ->setFuelType2($data['fuelType2'] ?? null)
@@ -46,5 +46,7 @@ class FuelSpecsFactory
             ->setEpaCityUtilityFactor($data['ePACityUtilityFactor'] ?? null)
             ->setEpaHighwayUtilityFactor($data['ePAHighwayUtilityFactor'] ?? null)
             ->setEpaCombinedUtilityFactor($data['ePACombinedUtilityFactor'] ?? null);
+
+        return $fuelSpecification;
     }
 }

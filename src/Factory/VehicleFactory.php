@@ -20,12 +20,12 @@ class VehicleFactory
         Transmission $transmission,
         VehicleDimensions $vehicleDimensions, 
         PerformanceData $performanceData,
-        ElectricSpecification $electricSpecification
+        ElectricSpecification $electricSpecification,
     ): Vehicle
     {
         $vehicle = new Vehicle();
 
-        return $vehicle
+        $vehicle
             ->setBrand($data['make'] ?? null)
             ->setModel($data['model'] ?? null)
             ->setYear($data['year'] ?? null)
@@ -39,8 +39,10 @@ class VehicleFactory
             ->setEngineSpecs($engine ?? null)
             ->setFuelSpecs($fuelSpecification ?? null)
             ->setTransmissionSpecs($transmission ?? null)
-            ->setDimensionSpecs($dimensions ?? null)
-            ->setPerformanceSpecs($performance ?? null)
-            ->setElectricSpecs($electricSpecs ?? null);
+            ->setDimensionSpecs($vehicleDimensions ?? null)
+            ->setPerformanceSpecs($performanceData ?? null)
+            ->setElectricSpecs($electricSpecification ?? null);
+        
+        return $vehicle;
     }
 }

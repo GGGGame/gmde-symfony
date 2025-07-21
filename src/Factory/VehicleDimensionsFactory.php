@@ -10,12 +10,14 @@ class VehicleDimensionsFactory
     {
         $vehicleDimensions = new VehicleDimensions();
 
-        return $vehicleDimensions
+        $vehicleDimensions
             ->setHatchbackLuggageVolume($data['hatchbackLuggageVolume'] ?? null)
             ->setHatchbackPassengerVolume($data['hatchbackPassengerVolume'] ?? null)
             ->setTwoDoorLuggageVolume($data['2DoorLuggageVolume'] ?? null)
             ->setFourDoorLuggageVolume($data['4DoorLuggageVolume'] ?? null)
             ->setTwoDoorPassengerVolume($data['2DoorPassengerVolume'] ?? null)
             ->setFourDoorPassengerVolume($data['4DoorPassengerVolume'] ?? null);
+
+        return $vehicleDimensions;
     }
 }

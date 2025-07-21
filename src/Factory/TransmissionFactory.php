@@ -10,10 +10,12 @@ class TransmissionFactory
     {
         $transmission = new Transmission();
 
-        return $transmission
+        $transmission
             ->setTransmission($data['transmission'] ?? null)
             ->setTransmissionDescriptor($data['transmissionDescriptor'] ?? null)
             ->setTCharger($data['tCharger'] ?? null)
             ->setSCharger($data['sCharger'] ?? null);
+        
+        return $transmission;
     }
 }

@@ -54,8 +54,9 @@
 ```bash
 git clone <repository-url>
 cd gmde-symfony
+docker compose up -d
+docker compose exec php bash
 composer install
-php bin/console doctrine:database:create
 php bin/console doctrine:migrations:migrate
 ```
 

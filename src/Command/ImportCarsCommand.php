@@ -2,6 +2,7 @@
 
 namespace App\Command;
 
+use App\Service\CsvImporter;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -16,7 +17,9 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 )]
 class ImportCarsCommand extends Command
 {
-    public function __construct()
+    public function __construct(
+        private CsvImporter $csvImporter,
+    )
     {
         parent::__construct();
     }
@@ -37,9 +40,7 @@ class ImportCarsCommand extends Command
             return Command::FAILURE;
         }
 
-        if ($input->getOption('option1')) {
-            // ...
-        }
+        $this->csvImporter->import($csvPath);
 
         $io->success('You have a new command! Now make it your own! Pass --help to see your options.');
 

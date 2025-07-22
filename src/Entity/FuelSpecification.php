@@ -73,6 +73,9 @@ class FuelSpecification
     #[ORM\Column(nullable: true)]
     private ?int $highwayMpgFT1 = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?int $highwayMpgFT2 = null;
+
     #[ORM\Column(type: Types::DECIMAL, precision: 15, scale: 10, nullable: true)]
     private ?string $unroundedHighwayMpgFT1 = null;
 
@@ -358,6 +361,18 @@ class FuelSpecification
     public function setHighwayMpgFT1(?int $highwayMpgFT1): static
     {
         $this->highwayMpgFT1 = $highwayMpgFT1;
+
+        return $this;
+    }
+
+    public function getHighwayMpgFT2(): ?int
+    {
+        return $this->highwayMpgFT2;
+    }
+
+    public function setHighwayMpgFT2(?int $highwayMpgFT2): static
+    {
+        $this->highwayMpgFT2 = $highwayMpgFT2;
 
         return $this;
     }

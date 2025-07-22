@@ -16,6 +16,23 @@ class ElectricSpecificationRepository extends ServiceEntityRepository
         parent::__construct($registry, ElectricSpecification::class);
     }
 
+    public function findOneByFields(array $data): ?ElectricSpecification
+    {
+        return $this->createQueryBuilder('e')
+            ->andWhere('e.timeToCharge120V = :timeToCharge120V')
+            ->andWhere('e.timeToCharge240V = :timeToCharge240V')
+            ->andWhere('e.mfrCode = :mfrCode')
+            ->andWhere('e.electricMotor = :electricMotor')
+            ->setParameter('timeToCharge120V', $data['timeToChargeAt120V'])
+            ->setParameter('timeToCharge240V', $data['timeToChargeAt240V'])
+            ->setParameter('mfrCode', $data['mFRCode'])
+            ->setParameter('electricMotor', $data['electricMotor'])
+            ->orderBy('e.id', 'ASC')
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
 //    /**
 //     * @return ElectricSpecification[] Returns an array of ElectricSpecification objects
 //     */

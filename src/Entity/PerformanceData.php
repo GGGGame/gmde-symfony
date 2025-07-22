@@ -38,7 +38,7 @@ class PerformanceData
     private ?string $unadjustedCityMpgFT2 = null;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 8, scale: 4, nullable: true)]
-    private ?string $unadjustedHighwayFT1 = null;
+    private ?string $unadjustedHighwayMpgFT1 = null;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 8, scale: 4, nullable: true)]
     private ?string $unadjustedHighwayMpgFT2 = null;
@@ -149,14 +149,14 @@ class PerformanceData
         return $this;
     }
 
-    public function getUnadjustedHighwayFT1(): ?string
+    public function getUnadjustedHighwayMpgFT1(): ?string
     {
-        return $this->unadjustedHighwayFT1;
+        return $this->unadjustedHighwayMpgFT1;
     }
 
-    public function setUnadjustedHighwayFT1(?string $unadjustedHighwayFT1): static
+    public function setUnadjustedHighwayMpgFT1(?string $unadjustedHighwayMpgFT1): static
     {
-        $this->unadjustedHighwayFT1 = $unadjustedHighwayFT1;
+        $this->unadjustedHighwayMpgFT1 = $unadjustedHighwayMpgFT1;
 
         return $this;
     }

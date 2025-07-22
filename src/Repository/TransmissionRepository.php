@@ -16,6 +16,23 @@ class TransmissionRepository extends ServiceEntityRepository
         parent::__construct($registry, Transmission::class);
     }
 
+    public function findOneByFields(array $data): ?Transmission
+    {
+        return $this->createQueryBuilder('t')
+            ->andWhere('t.transmission = :transmission')
+            ->andWhere('t.transmissionDescriptor = :transmissionDescriptor')
+            ->andWhere('t.tCharger = :tCharger')
+            ->andWhere('t.sCharger = :sCharger')
+            ->setParameter('transmission', $data['transmission'])
+            ->setParameter('transmissionDescriptor', $data['transmissionDescriptor'] ?? null)
+            ->setParameter('tCharger', $data['tCharger'] ?? null)
+            ->setParameter('sCharger', $data['sCharger'] ?? null)
+            ->orderBy('t.id', 'ASC')
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
 //    /**
 //     * @return Transmission[] Returns an array of Transmission objects
 //     */

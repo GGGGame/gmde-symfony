@@ -38,31 +38,28 @@ class Vehicle
     #[ORM\Column(nullable: true)]
     private ?int $vehicleSaveSpend = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?int $vehicleId = null;
-
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTime $createdOn = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTime $modifiedOn = null;
 
-    #[ORM\ManyToOne(inversedBy: 'vehicles')]
+    #[ORM\ManyToOne(inversedBy: 'vehicles', cascade: ['persist'])]
     private ?Engine $engineSpecs = null;
 
-    #[ORM\ManyToOne(inversedBy: 'vehicles')]
+    #[ORM\ManyToOne(inversedBy: 'vehicles', cascade: ['persist'])]
     private ?FuelSpecification $fuelSpecs = null;
 
-    #[ORM\ManyToOne(inversedBy: 'vehicles')]
+    #[ORM\ManyToOne(inversedBy: 'vehicles', cascade: ['persist'])]
     private ?Transmission $transmissionSpecs = null;
 
-    #[ORM\ManyToOne(inversedBy: 'vehicles')]
+    #[ORM\ManyToOne(inversedBy: 'vehicles', cascade: ['persist'])]
     private ?VehicleDimensions $dimensionSpecs = null;
 
-    #[ORM\ManyToOne(inversedBy: 'vehicles')]
+    #[ORM\ManyToOne(inversedBy: 'vehicles', cascade: ['persist'])]
     private ?PerformanceData $performanceSpecs = null;
 
-    #[ORM\ManyToOne(inversedBy: 'vehicles')]
+    #[ORM\ManyToOne(inversedBy: 'vehicles', cascade: ['persist'])]
     private ?ElectricSpecification $electricSpecs = null;
 
     public function getId(): ?int
@@ -162,18 +159,6 @@ class Vehicle
     public function setVehicleSaveSpend(?int $vehicleSaveSpend): static
     {
         $this->vehicleSaveSpend = $vehicleSaveSpend;
-
-        return $this;
-    }
-
-    public function getVehicleId(): ?int
-    {
-        return $this->vehicleId;
-    }
-
-    public function setVehicleId(?int $vehicleId): static
-    {
-        $this->vehicleId = $vehicleId;
 
         return $this;
     }

@@ -65,7 +65,7 @@ php bin/console doctrine:migrations:migrate
 ## 📥 Importazione CSV
 
 ```bash
-php bin/console app:import-cars ./public/vehicle.csv -b {BatchSize}
+php bin/console app:import-cars ./public/vehicles.csv  -b {BatchSize}
 ```
 
 

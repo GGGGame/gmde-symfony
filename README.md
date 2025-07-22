@@ -127,3 +127,22 @@ GET /api/models/search?query=ferrari&page=2&limit=10
 - **Validazione:** i vincoli sono definiti tramite annotazioni Symfony Validator sulle Entity.
 
 ---
+
+## 🔎 Scelte Architetturali
+
+- **Separation of Concerns:**  
+  Ogni componente (DTO, Entity, Mapper, Factory, Service) ha una responsabilità chiara e isolata.
+- **Validazione:**  
+  Tutti i dati vengono validati tramite il componente Symfony Validator prima della persistenza.
+- **Gestione Duplicati:**  
+  I veicoli vengono identificati tramite una chiave logica (es. `brand`, `model`, `year`) per evitare duplicati.
+- **Batch Import:**  
+  L’import avviene in batch per ottimizzare performance e memoria.
+- **Logging:**  
+  Logging dettagliato di errori, warning e progressi tramite PSR-3 Logger.
+- **API RESTful:**  
+  Endpoint per ricerca e dettaglio veicolo, serializzazione tramite DTO e Mapper.
+- **Normalizzazione CSV:**  
+  Le chiavi del CSV vengono normalizzate per garantire robustezza e compatibilità.
+
+---

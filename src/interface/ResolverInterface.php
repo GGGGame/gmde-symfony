@@ -2,7 +2,7 @@
 
 namespace App\interface;
 
-interface InterfaceResolver
+interface ResolverInterface
 {
     public function resolve(array $data): object;
     public function supports(string $type): bool;

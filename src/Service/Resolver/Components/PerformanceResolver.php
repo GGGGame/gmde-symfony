@@ -4,10 +4,10 @@ namespace App\Service\Resolver\Components;
 
 use App\Entity\PerformanceData;
 use App\Factory\PerformanceDataFactory;
-use App\interface\InterfaceResolver;
+use App\interface\ResolverInterface;
 use App\Repository\PerformanceDataRepository;
 
-class PerformanceResolver implements InterfaceResolver
+class PerformanceResolver implements ResolverInterface
 {
     public function __construct(
         private PerformanceDataRepository $performanceDataRepository,

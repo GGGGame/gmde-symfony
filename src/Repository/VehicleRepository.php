@@ -32,15 +32,37 @@ class VehicleRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
     }
 
-    public function findById(int $id): ?Vehicle
+    public function searchByModel(string $query, int $offset, int $limit): array
     {
-        return $this->createQueryBuilder('v')
-            ->andWhere('v.id = :id')
-            ->setParameter('id', $id)
+        $qb = $this->createQueryBuilder('v');
+
+        return $qb
+            ->where($qb->expr()->like(
+                $qb->expr()->lower('v.model'),
+                $qb->expr()->lower(':query')
+            ))
+            ->setParameter('query', '%' . $query . '%')
+            ->setFirstResult($offset)
+            ->setMaxResults($limit)
+            ->orderBy('v.brand', 'ASC')
             ->getQuery()
-            ->getOneOrNullResult();
+            ->getResult();
     }
 
+    public function countByModel(string $query): int
+    {
+        $qb = $this->createQueryBuilder('v');
+
+        return (int)$qb
+            ->select($qb->expr()->countDistinct('v.id'))
+            ->where($qb->expr()->like(
+                $qb->expr()->lower('v.model'),
+                $qb->expr()->lower(':query')
+            ))
+            ->setParameter('query', '%' . $query . '%')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
 
 //    /**
 //     * @return Vehicle[] Returns an array of Vehicle objects

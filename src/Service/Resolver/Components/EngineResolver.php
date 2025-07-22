@@ -4,10 +4,10 @@ namespace App\Service\Resolver\Components;
 
 use App\Entity\Engine;
 use App\Factory\EngineFactory;
-use App\interface\InterfaceResolver;
+use App\interface\ResolverInterface;
 use App\Repository\EngineRepository;
 
-class EngineResolver implements InterfaceResolver
+class EngineResolver implements ResolverInterface
 {
     public function __construct(
         private EngineFactory $engineFactory,

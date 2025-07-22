@@ -4,10 +4,10 @@ namespace App\Service\Resolver\Components;
 
 use App\Entity\ElectricSpecification;
 use App\Factory\ElectricSpecsFactory;
-use App\interface\InterfaceResolver;
+use App\interface\ResolverInterface;
 use App\Repository\ElectricSpecificationRepository;
 
-class ElectricSpecsResolver implements InterfaceResolver
+class ElectricSpecsResolver implements ResolverInterface
 {
     public function __construct(
         private ElectricSpecsFactory $electricSpecsFactory,

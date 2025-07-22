@@ -8,8 +8,10 @@ services:
             $projectDir: '%kernel.project_dir%'
 
     _instanceof:
-        App\Interface\InterfaceResolver:
+        App\Interface\ResolverInterface:
             tags: ['app.vehicle_component_resolver']
+        App\Interface\MapperInterface:
+            tags: ['app.mapper']
 
     App\:
         resource: '../src/'
@@ -19,6 +21,15 @@ services:
     App\Service\Resolver\Components\:
         resource: '../src/Service/Resolver/Components/*'
         public: false
+
+    App\Mapper\Components\:
+        resource: '../src/Mapper/Components/*'
+        public: false
+
+    App\Mapper\MapperRegistry:
+        arguments:
+            $mappers: !tagged_iterator app.mapper
+
 
     App\Service\Resolver\VehicleComponentsResolver:
         arguments:

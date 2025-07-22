@@ -4,10 +4,10 @@ namespace App\Service\Resolver\Components;
 
 use App\Entity\Transmission;
 use App\Factory\TransmissionFactory;
-use App\interface\InterfaceResolver;
+use App\interface\ResolverInterface;
 use App\Repository\TransmissionRepository;
 
-class TransmissionResolver implements InterfaceResolver
+class TransmissionResolver implements ResolverInterface
 {
     public function __construct(
         private TransmissionFactory $transmissionFactory,

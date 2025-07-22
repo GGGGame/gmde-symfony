@@ -4,10 +4,10 @@ namespace App\Service\Resolver\Components;
 
 use App\Entity\FuelSpecification;
 use App\Factory\FuelSpecsFactory;
-use App\interface\InterfaceResolver;
+use App\interface\ResolverInterface;
 use App\Repository\FuelSpecificationRepository;
 
-class FuelSpecsResolver implements InterfaceResolver
+class FuelSpecsResolver implements ResolverInterface
 {
     public function __construct(
         private FuelSpecsFactory $fuelSpecsFactory,

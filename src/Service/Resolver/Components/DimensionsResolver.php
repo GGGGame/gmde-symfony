@@ -4,10 +4,10 @@ namespace App\Service\Resolver\Components;
 
 use App\Entity\VehicleDimensions;
 use App\Factory\VehicleDimensionsFactory;
-use App\interface\InterfaceResolver;
+use App\interface\ResolverInterface;
 use App\Repository\VehicleDimensionsRepository;
 
-class DimensionsResolver implements InterfaceResolver
+class DimensionsResolver implements ResolverInterface
 {
     public function __construct(
         private VehicleDimensionsFactory $vehicleDimensionsFactory,

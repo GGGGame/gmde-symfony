@@ -1,5 +1,7 @@
 <?php
 
+namespace App\DTO;
+
 class ElectricSpecsDTO
 {
     public function __construct(

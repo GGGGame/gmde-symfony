@@ -2,12 +2,12 @@
 
 namespace App\Service\Resolver;
 
-use App\interface\InterfaceResolver;
+use App\interface\ResolverInterface;
 
 class VehicleComponentsResolver
 {
     /**
-     * @param iterable<InterfaceResolver> $resolvers
+     * @param iterable<ResolverInterface> $resolvers
      */
     public function __construct(
         private iterable $resolvers

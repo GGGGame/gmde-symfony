@@ -46,8 +46,6 @@ class ImportCarsCommand extends Command
             return Command::FAILURE;
         }
 
-        $io->info('Batch size IO: ' . $batchSize);
-
         $this->csvImporter->import($csvPath, $batchSize);
 
         $io->success('Import command success.');
@@ -58,10 +56,6 @@ class ImportCarsCommand extends Command
      private function validateBatchSize(InputInterface $input, SymfonyStyle $io): ?int
     {
         $batchSizeRaw = $input->getOption('batch');
-        
-        // DEBUG: Mostra cosa arriva dall'input
-        $io->info("DEBUG: Raw batch value: " . var_export($batchSizeRaw, true));
-        $io->info("DEBUG: Type: " . gettype($batchSizeRaw));
 
         if (is_string($batchSizeRaw)) {
             $batchSizeRaw = trim($batchSizeRaw);
@@ -75,9 +69,6 @@ class ImportCarsCommand extends Command
         } else {
             $batchSize = (int)$batchSizeRaw;
         }
-
-        // DEBUG: Mostra il valore finale
-        $io->info("DEBUG: Final batch size: {$batchSize}");
 
         return $batchSize;
     }

@@ -43,8 +43,6 @@ class GenericImporter
                         $this->batchEntityPersister->persist($batch, $batchSize);
                         $batch = [];
 
-                        $this->entityManager->clear();
-                        gc_collect_cycles();
                         $this->logger->warning(
                             "Importati {$importResult->getSuccessCount()} veicoli " . 
                             "Current memory usage: ". round(memory_get_usage() / 1024 / 1024, 2) . "MB");

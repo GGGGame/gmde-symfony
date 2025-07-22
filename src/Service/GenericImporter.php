@@ -2,7 +2,6 @@
 
 namespace App\Service;
 
-use App\Interface\ImportableEntityInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -23,7 +22,7 @@ class GenericImporter
     public function import(
         iterable $rows, 
         callable $factory,
-        ?int $batchSize = 100
+        ?int $batchSize = 1000
         ): array
     {
         $batch = [];
@@ -31,7 +30,7 @@ class GenericImporter
 
         foreach ($rows as $row) {
             try {
-                // Normalizza le keys prima di creare Vehicle
+                // Normalizza le keys prima di creare le entity
                 $row = $this->stringNormalizer->normalizeKey($row);
                 $entity = $factory($row);
 
@@ -40,14 +39,16 @@ class GenericImporter
                     $batch[] = $entity;
                     $importResult->addSuccess();
 
-                    if (count($batch) > $batchSize) {
+                    if (count($batch) >= $batchSize) {
                         $this->batchEntityPersister->persist($batch, $batchSize);
                         $batch = [];
 
-                        $this->logger->info(
-                            "Importati {$importResult->getSuccessCount()} veicoli");
-                        
+                        $this->entityManager->clear();
                         gc_collect_cycles();
+                        $this->logger->warning(
+                            "Importati {$importResult->getSuccessCount()} veicoli " . 
+                            "Current memory usage: ". round(memory_get_usage() / 1024 / 1024, 2) . "MB");
+                        
                     }
                 } else {
                     foreach ($validationResult as $error) {
@@ -66,7 +67,7 @@ class GenericImporter
             $this->batchEntityPersister->persist($batch, $batchSize);
         }
 
-        $this->logger->info("Import completato con {$importResult->getSuccessCount()} successi e " .
+        $this->logger->warning("Import completato con {$importResult->getSuccessCount()} successi e " .
             count($importResult->getFailedRows()) . " errori.");
 
         return $batch;

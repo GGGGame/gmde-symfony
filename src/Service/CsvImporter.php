@@ -13,7 +13,7 @@ class CsvImporter
         private VehicleCreator $vehicleCreator
     ) {}
 
-    public function import(string $csvPath): void
+    public function import(string $csvPath, ?int $batchSize): void
     {
         $reader = Reader::createFromPath($csvPath, 'r')
                   ->setDelimiter(';')
@@ -21,7 +21,8 @@ class CsvImporter
 
         $this->genericImporter->import(
             $reader->getRecords(),
-            fn($row) => $this->vehicleCreator->createCompleteVehicle($row)
+            fn($row) => $this->vehicleCreator->createCompleteVehicle($row),
+            $batchSize
         );
     }
 }

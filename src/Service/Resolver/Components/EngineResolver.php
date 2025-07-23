@@ -22,6 +22,6 @@ class EngineResolver implements ResolverInterface
 
     public function supports(string $type): bool
     {
-        return $type === 'engine';
+        return $type === Engine::class;
     }
 }

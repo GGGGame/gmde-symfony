@@ -22,6 +22,6 @@ class FuelSpecsResolver implements ResolverInterface
 
     public function supports(string $type): bool
     {
-        return $type === 'fuel_specs';
+        return $type === FuelSpecification::class;
     }
 }

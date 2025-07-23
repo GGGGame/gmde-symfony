@@ -22,6 +22,6 @@ class DimensionsResolver implements ResolverInterface
 
     public function supports(string $type): bool
     {
-        return $type === 'vehicle_dimensions';
+        return $type === VehicleDimensions::class;
     }
 }

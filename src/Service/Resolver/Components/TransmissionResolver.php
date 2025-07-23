@@ -22,6 +22,6 @@ class TransmissionResolver implements ResolverInterface
 
     public function supports(string $type): bool
     {
-        return $type === 'transmission';
+        return $type === Transmission::class;
     }
 }

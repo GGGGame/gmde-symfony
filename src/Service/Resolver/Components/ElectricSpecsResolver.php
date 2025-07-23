@@ -22,6 +22,6 @@ class ElectricSpecsResolver implements ResolverInterface
 
     public function supports(string $type): bool
     {
-        return $type === 'electric_specs';
+        return $type === ElectricSpecification::class;
     }
 }

@@ -2,20 +2,14 @@
 
 namespace App\Service;
 
+use App\Entity\ElectricSpecification;
+use App\Entity\Engine;
+use App\Entity\FuelSpecification;
+use App\Entity\PerformanceData;
+use App\Entity\Transmission;
 use App\Entity\Vehicle;
-use App\Factory\ElectricSpecsFactory;
-use App\Factory\EngineFactory;
-use App\Factory\FuelSpecsFactory;
-use App\Factory\PerformanceDataFactory;
-use App\Factory\TransmissionFactory;
-use App\Factory\VehicleDimensionsFactory;
+use App\Entity\VehicleDimensions;
 use App\Factory\VehicleFactory;
-use App\Repository\ElectricSpecificationRepository;
-use App\Repository\EngineRepository;
-use App\Repository\FuelSpecificationRepository;
-use App\Repository\PerformanceDataRepository;
-use App\Repository\TransmissionRepository;
-use App\Repository\VehicleDimensionsRepository;
 use App\Repository\VehicleRepository;
 use App\Service\Resolver\VehicleComponentsResolver;
 
@@ -35,12 +29,12 @@ class VehicleCreator
             return $existingVehicle;
         }
 
-        $engine = $this->componentsResolver->resolve('engine', $row);
-        $fuelSpecs = $this->componentsResolver->resolve('fuel_specs', $row);
-        $transmission = $this->componentsResolver->resolve('transmission', $row);
-        $dimensions = $this->componentsResolver->resolve('vehicle_dimensions', $row);
-        $performance = $this->componentsResolver->resolve('performance_data', $row);
-        $electricSpecs = $this->componentsResolver->resolve('electric_specs', $row);
+        $engine = $this->componentsResolver->resolve(Engine::class, $row);
+        $fuelSpecs = $this->componentsResolver->resolve(FuelSpecification::class, $row);
+        $transmission = $this->componentsResolver->resolve(Transmission::class, $row);
+        $dimensions = $this->componentsResolver->resolve(VehicleDimensions::class, $row);
+        $performance = $this->componentsResolver->resolve(PerformanceData::class, $row);
+        $electricSpecs = $this->componentsResolver->resolve(ElectricSpecification::class, $row);
 
         $vehicle = $this->vehicleFactory->createVehicle(
                 $row,

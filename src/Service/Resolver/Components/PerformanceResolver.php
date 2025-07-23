@@ -22,6 +22,6 @@ class PerformanceResolver implements ResolverInterface
 
     public function supports(string $type): bool
     {
-        return $type === 'performance_data';
+        return $type === PerformanceData::class;
     }
 }

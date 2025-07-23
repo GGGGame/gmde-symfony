@@ -13,7 +13,7 @@ class VehicleComponentsResolver
         private iterable $resolvers
     ) {}
 
-    public function resolve(string $type, array $data, ): object
+    public function resolve(string $type, array $data): object
     {
         foreach ($this->resolvers as $resolver) {
             if ($resolver->supports($type)) {
